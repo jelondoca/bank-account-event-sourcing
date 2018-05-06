@@ -33,13 +33,4 @@ public class JSONBOrderDeserializer implements JsonbDeserializer<Order> {
         return event;
     }
 
-    public static void main(String[] args) {
-        JsonbBuilder builder = JsonbBuilder.newBuilder();
-        builder.withConfig(JsonConfigFactory.config());
-        Jsonb jsonb = builder.build();
-        WithdrawOrderPlaced as = jsonb.fromJson("{\"com.sergio.model.WithdrawOrderPlaced\":{\"id\":\"697ddc" +
-                "1a-29b8-4852-ab41-4cbd1d05133c\",\"instant\":\"2018-05-06T12:10:54.092Z\",\"account\":\"1\"," +
-                "\"quantity\":2000.0}}", WithdrawOrderPlaced.class.getGenericSuperclass());
-    }
-
 }

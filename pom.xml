@@ -38,6 +38,13 @@
             <artifactId>kafka_2.12</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!-- JUnit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>bank-account-event-sourcing</finalName>
