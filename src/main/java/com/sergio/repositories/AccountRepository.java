@@ -31,4 +31,8 @@ public class AccountRepository {
         accounts.put(id, accountInfo);
         return id;
     }
+
+    public void update(AccountInfo account) {
+        accounts.merge(account.getId(), account, (current, updated) -> updated);
+    }
 }

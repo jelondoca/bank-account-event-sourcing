@@ -7,6 +7,7 @@ import com.sergio.repositories.AccountRepository;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import javax.ws.rs.NotFoundException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ public class AccountService {
     public String create(String ownerName, String ownerSurnames) {
         AccountInfo accountInfo = new AccountInfo();
         accountInfo.setOwner(ownerName + " " + ownerSurnames);
+        accountInfo.setQuantity(0.0f);
         return accountRepository.add(accountInfo);
     }
 
@@ -29,11 +31,26 @@ public class AccountService {
         String accountId = order.getAccount();
         Optional<AccountInfo> info = accountRepository.get(accountId);
         if(info.isPresent()) {
-          // TODO: do the logic
+            AccountInfo account = info.get();
+            Float currentQuantity = account.getQuantity();
+            Float quantity = order.getQuantity();
+            float updatedQuantity = currentQuantity - quantity;
+            if(updatedQuantity < 0) {
+                System.err.println("insufficient balance! rejecting");
+                WithdrawOrderRejected rejected = new WithdrawOrderRejected(order.getId(),"insufficient balance");
+                eventBus.produce(rejected);
+                return;
+            }
+            account.setQuantity(updatedQuantity);
+            accountRepository.update(account);
         } else{
             System.err.println("account not found! rejecting...");
             WithdrawOrderRejected rejected = new WithdrawOrderRejected(order.getId(),"account not found");
             eventBus.produce(rejected);
         }
+    }
+
+    public AccountInfo get(String accountId) {
+        return accountRepository.get(accountId).orElseThrow(NotFoundException::new);
     }
 }

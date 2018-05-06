@@ -1,5 +1,6 @@
 package com.sergio.resources;
 
+import com.sergio.model.AccountInfo;
 import com.sergio.model.CreateAccountRequest;
 import com.sergio.services.AccountService;
 
@@ -31,7 +32,8 @@ public class AccountResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("id") String accountId) {
-        return Response.ok().build();
+        AccountInfo account = accountService.get(accountId);
+        return Response.ok(account).build();
     }
 
     @POST
