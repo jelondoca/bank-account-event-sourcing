@@ -1,11 +1,7 @@
 package com.sergio.services.consumer.deserializers;
 
-import com.sergio.model.Order;
-import com.sergio.model.WithdrawOrderPlaced;
-import com.sergio.services.producers.config.JsonConfigFactory;
+import com.sergio.model.orders.Order;
 
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 import javax.json.bind.serializer.DeserializationContext;
 import javax.json.bind.serializer.JsonbDeserializer;
 import javax.json.stream.JsonParser;

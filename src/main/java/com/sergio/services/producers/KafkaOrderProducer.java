@@ -1,6 +1,6 @@
 package com.sergio.services.producers;
 
-import com.sergio.model.Order;
+import com.sergio.model.orders.Order;
 import com.sergio.services.EventBus;
 import com.sergio.services.producers.serializers.KafkaOrderSerializer;
 import org.apache.kafka.clients.producer.KafkaProducer;

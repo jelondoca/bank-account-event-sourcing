@@ -1,6 +1,6 @@
 package com.sergio.repositories;
 
-import com.sergio.model.Order;
+import com.sergio.model.orders.Order;
 
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -15,10 +15,10 @@ public class EventStorage {
 
     private static final Map<String, List<Order>> database = new ConcurrentHashMap<>();
 
-    public void add(Order withdrawPlaced) {
-        database.putIfAbsent(withdrawPlaced.getId().toString(), new ArrayList<>());
-        database.computeIfPresent(withdrawPlaced.getId().toString(), (k,v) -> {
-            v.add(withdrawPlaced);
+    public void add(Order order) {
+        database.putIfAbsent(order.getId(), new ArrayList<>());
+        database.computeIfPresent(order.getId(), (k, v) -> {
+            v.add(order);
             return v;
         });
     }

@@ -1,4 +1,6 @@
-package com.sergio.model;
+package com.sergio.model.orders;
+
+import com.sergio.model.OrderInfo;
 
 import javax.json.bind.annotation.JsonbCreator;
 import javax.json.bind.annotation.JsonbProperty;

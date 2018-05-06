@@ -1,6 +1,7 @@
 package com.sergio.services.consumer;
 
-import com.sergio.model.Order;
+import com.sergio.model.orders.Order;
+import com.sergio.services.AccountService;
 import com.sergio.services.consumer.deserializers.KafkaOrderDeserializer;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -8,17 +9,24 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.enterprise.concurrent.ManagedExecutorService;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
+import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 import java.util.Collections;
 import java.util.Properties;
 
 @ApplicationScoped
 public class KafkaConsumer {
+
+    @Inject
+    AccountService accountService;
+
+    @Inject
+    Event<Order> orderEvent;
 
     @Resource
     ManagedExecutorService executorService;
@@ -40,7 +48,7 @@ public class KafkaConsumer {
                     ConsumerRecords<String, Order> records = consumer.poll(Long.MAX_VALUE);
                     for (ConsumerRecord<String, Order> record : records) {
                         Order order = record.value();
-                        System.out.println(order);
+                        orderEvent.fire(order);
                     }
                 }
             }finally {

@@ -1,4 +1,6 @@
-package com.sergio.model;
+package com.sergio.model.orders;
+
+import com.sergio.model.OrderInfo;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -11,6 +13,11 @@ public abstract class Order {
     public Order() {
         this.instant = Instant.now();
         this.id = UUID.randomUUID().toString();
+    }
+
+    public Order(String id) {
+        this.instant = Instant.now();
+        this.id = id;
     }
 
     public Instant getInstant() {

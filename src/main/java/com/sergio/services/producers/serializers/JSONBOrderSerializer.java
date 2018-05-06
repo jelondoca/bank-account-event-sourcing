@@ -1,6 +1,6 @@
 package com.sergio.services.producers.serializers;
 
-import com.sergio.model.Order;
+import com.sergio.model.orders.Order;
 
 import javax.json.bind.serializer.JsonbSerializer;
 import javax.json.bind.serializer.SerializationContext;
