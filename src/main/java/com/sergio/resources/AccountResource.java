@@ -5,16 +5,20 @@ import com.sergio.model.CreateAccountRequest;
 import com.sergio.services.AccountService;
 
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Link;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
+import java.net.URI;
 
 @Path("/accounts")
 public class AccountResource {
@@ -24,8 +28,16 @@ public class AccountResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response all(@Context UriInfo uriInfo) {
-        return Response.ok().build();
+    public JsonObject info(@Context UriInfo uriInfo) {
+        URI uri = uriInfo.getBaseUriBuilder()
+                .path(AccountResource.class)
+                .path(AccountResource.class, "get")
+                .build("{id}");
+        return Json.createObjectBuilder().add("_links",
+                Json.createArrayBuilder()
+                .add(uri.toASCIIString())
+                .build()
+        ).build();
     }
 
     @GET
