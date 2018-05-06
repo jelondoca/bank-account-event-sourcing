@@ -1,6 +1,6 @@
 package com.sergio.model;
 
-public class WithdrawalRequest {
+public class WithdrawRequest {
 
     private String account;
     private Float quantity;
@@ -23,7 +23,7 @@ public class WithdrawalRequest {
 
     @Override
     public String toString() {
-        return "{\"WithdrawalRequest\":{"
+        return "{\"WithdrawRequest\":{"
                 + "\"account\":\"" + account + "\""
                 + ", \"quantity\":\"" + quantity + "\""
                 + "}}";

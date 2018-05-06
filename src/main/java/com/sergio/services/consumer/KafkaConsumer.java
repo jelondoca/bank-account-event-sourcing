@@ -1,6 +1,6 @@
 package com.sergio.services.consumer;
 
-import com.sergio.model.orders.Order;
+import com.sergio.model.events.Order;
 import com.sergio.services.AccountService;
 import com.sergio.services.consumer.deserializers.KafkaOrderDeserializer;
 import org.apache.kafka.clients.consumer.Consumer;

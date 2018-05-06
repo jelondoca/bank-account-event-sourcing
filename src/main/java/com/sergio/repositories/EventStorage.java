@@ -1,6 +1,6 @@
 package com.sergio.repositories;
 
-import com.sergio.model.orders.Order;
+import com.sergio.model.events.Order;
 
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -24,6 +24,10 @@ public class EventStorage {
     }
 
     public List<Order> get(String orderId) {
+        return database.get(orderId);
+    }
+
+    public List<Order> getAll(String orderId) {
         return database.get(orderId);
     }
 }

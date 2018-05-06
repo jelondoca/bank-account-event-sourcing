@@ -1,7 +1,7 @@
 package com.sergio.services.producers.serializers;
 
 import com.sergio.services.producers.config.JsonConfigFactory;
-import com.sergio.model.orders.Order;
+import com.sergio.model.events.Order;
 import org.apache.kafka.common.serialization.Serializer;
 
 import javax.json.bind.Jsonb;

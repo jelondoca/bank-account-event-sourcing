@@ -1,6 +1,6 @@
 package com.sergio.services.consumer.deserializers;
 
-import com.sergio.model.orders.Order;
+import com.sergio.model.events.Order;
 
 import javax.json.bind.serializer.DeserializationContext;
 import javax.json.bind.serializer.JsonbDeserializer;

@@ -1,4 +1,4 @@
-package com.sergio.model.orders;
+package com.sergio.model.events;
 
 import com.sergio.model.OrderInfo;
 

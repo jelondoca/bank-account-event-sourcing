@@ -1,6 +1,6 @@
 package com.sergio.services.consumer.deserializers;
 
-import com.sergio.model.orders.Order;
+import com.sergio.model.events.Order;
 import com.sergio.services.producers.config.JsonConfigFactory;
 import org.apache.kafka.common.serialization.Deserializer;
 
