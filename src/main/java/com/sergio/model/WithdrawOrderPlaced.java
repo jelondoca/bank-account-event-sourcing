@@ -1,11 +1,15 @@
 package com.sergio.model;
 
+import javax.json.bind.annotation.JsonbCreator;
+import javax.json.bind.annotation.JsonbProperty;
+
 public class WithdrawOrderPlaced extends Order {
 
     private final String account;
     private final Float quantity;
 
-    private WithdrawOrderPlaced(String account, Float quantity) {
+    @JsonbCreator
+    public WithdrawOrderPlaced(@JsonbProperty("account") String account, @JsonbProperty("quantity") Float quantity) {
         this.account = account;
         this.quantity = quantity;
     }
@@ -23,25 +27,11 @@ public class WithdrawOrderPlaced extends Order {
         order.setStatus(OrderInfo.OrderStatusType.PLACED);
     }
 
-    public static class WithdrawOrderPlacedBuilder {
-
-        private String account;
-        private Float quantity;
-
-        public WithdrawOrderPlacedBuilder toAccount(String account) {
-            this.account = account;
-            return this;
-        }
-
-        public WithdrawOrderPlacedBuilder withQuantity(Float quantity) {
-            this.quantity = quantity;
-            return this;
-        }
-
-        public WithdrawOrderPlaced build() {
-            return new WithdrawOrderPlaced(account, quantity);
-        }
-
+    @Override
+    public String toString() {
+        return "{\"WithdrawOrderPlaced\":{"
+                + "\"account\":\"" + account + "\""
+                + ", \"quantity\":\"" + quantity + "\""
+                + "}}";
     }
-
 }

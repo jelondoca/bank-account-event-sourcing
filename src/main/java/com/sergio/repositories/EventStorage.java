@@ -1,4 +1,4 @@
-package com.sergio.com.sergio.repositories;
+package com.sergio.repositories;
 
 import com.sergio.model.Order;
 

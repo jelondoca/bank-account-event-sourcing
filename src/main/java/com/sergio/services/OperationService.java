@@ -1,7 +1,6 @@
 package com.sergio.services;
 
-import com.sergio.com.sergio.producers.EventBus;
-import com.sergio.com.sergio.repositories.EventStorage;
+import com.sergio.repositories.EventStorage;
 import com.sergio.model.Order;
 import com.sergio.model.OrderInfo;
 import com.sergio.model.WithdrawOrderPlaced;
@@ -18,21 +17,16 @@ public class OperationService {
     EventBus eventBus;
 
     public String withdraw(String account, Float quantity) {
-        WithdrawOrderPlaced withdrawPlaced = new WithdrawOrderPlaced.WithdrawOrderPlacedBuilder()
-                .toAccount(account)
-                .withQuantity(quantity)
-                .build();
+        WithdrawOrderPlaced withdrawPlaced = new WithdrawOrderPlaced(account, quantity);
         eventStorage.add(withdrawPlaced);
         eventBus.produce(withdrawPlaced);
-        return withdrawPlaced.getId().toString();
+        return withdrawPlaced.getId();
     }
 
     public OrderInfo check(String orderId) {
         List<Order> orders = eventStorage.get(orderId);
         OrderInfo info = new OrderInfo();
-        orders.forEach(o -> {
-            o.apply(info);
-        });
+        orders.forEach(o -> o.apply(info));
         return info;
     }
 }
