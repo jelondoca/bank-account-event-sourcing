@@ -8,7 +8,12 @@ import com.sergio.services.OperationService;
 
 import javax.inject.Inject;
 import javax.json.Json;
+import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.annotation.JsonbCreator;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -21,6 +26,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 
 @Path("/operations")
@@ -32,16 +38,21 @@ public class OperationResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject info(@Context UriInfo uriInfo) {
-        URI uri = uriInfo.getBaseUriBuilder()
-                .path(OperationResource.class)
-                .path(OperationResource.class, "withdraw")
-                .path(OperationResource.class, "deposit")
-                .path(OperationResource.class, "check")
-                .path(OperationResource.class, "events")
-                .build("{orderId}", "{orderId}");
+        URI base = uriInfo.getBaseUriBuilder()
+                .path(OperationResource.class).build();
+        URI withdraw = uriInfo.getBaseUriBuilder()
+                .path(OperationResource.class, "withdraw").build();
+        URI deposit = uriInfo.getBaseUriBuilder()
+                .path(OperationResource.class, "deposit").build();
+        URI events = uriInfo.getBaseUriBuilder()
+                .path(OperationResource.class, "events").build(":orderId");
+
         return Json.createObjectBuilder().add("_links",
                 Json.createArrayBuilder()
-                        .add(uri.toASCIIString())
+                        .add(base.toASCIIString())
+                        .add(withdraw.toASCIIString())
+                        .add(deposit.toASCIIString())
+                        .add(events.toASCIIString())
                         .build()
         ).build();
     }
@@ -69,8 +80,12 @@ public class OperationResource {
     @GET
     @Path("/{orderId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response check(@PathParam("orderId") String orderId) {
+    public Response check(@PathParam("orderId") String orderId, @Context UriInfo uriInfo) {
         OrderInfo orderInfo = operationService.check(orderId);
+        URI base = uriInfo.getAbsolutePathBuilder()
+                .path("events")
+                .build();
+        orderInfo.set_links(Collections.singleton(base));
         return Response.ok(orderInfo).build();
     }
 

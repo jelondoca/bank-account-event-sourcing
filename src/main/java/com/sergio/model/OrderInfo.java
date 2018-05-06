@@ -1,5 +1,9 @@
 package com.sergio.model;
 
+import java.net.URI;
+import java.util.List;
+import java.util.Set;
+
 public class OrderInfo {
 
     public enum OrderStatusType {
@@ -8,6 +12,7 @@ public class OrderInfo {
 
     private OrderStatusType status;
     private String info;
+    private Set<URI> _links;
 
     public OrderStatusType getStatus() {
         return status;
@@ -23,6 +28,14 @@ public class OrderInfo {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public Set<URI> get_links() {
+        return _links;
+    }
+
+    public void set_links(Set<URI> _links) {
+        this._links = _links;
     }
 
     @Override
