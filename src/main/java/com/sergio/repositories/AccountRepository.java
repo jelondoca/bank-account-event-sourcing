@@ -6,6 +6,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Singleton
@@ -22,5 +23,12 @@ public class AccountRepository {
         } else {
             return Optional.of(accountInfo);
         }
+    }
+
+    public String add(AccountInfo accountInfo) {
+        String id = UUID.randomUUID().toString();
+        accountInfo.setId(id);
+        accounts.put(id, accountInfo);
+        return id;
     }
 }

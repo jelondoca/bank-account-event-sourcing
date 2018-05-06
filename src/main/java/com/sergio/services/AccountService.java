@@ -18,7 +18,13 @@ public class AccountService {
     @Inject
     EventBus eventBus;
 
-    public void applyOrder(@Observes WithdrawOrderPlaced order) {
+    public String create(String ownerName, String ownerSurnames) {
+        AccountInfo accountInfo = new AccountInfo();
+        accountInfo.setOwner(ownerName + " " + ownerSurnames);
+        return accountRepository.add(accountInfo);
+    }
+
+    private void applyOrder(@Observes WithdrawOrderPlaced order) {
         System.out.println("ORDER PLACED! checking information...");
         String accountId = order.getAccount();
         Optional<AccountInfo> info = accountRepository.get(accountId);
@@ -30,5 +36,4 @@ public class AccountService {
             eventBus.produce(rejected);
         }
     }
-
 }

@@ -1,6 +1,6 @@
 package com.sergio.resources;
 
-import com.sergio.model.AccountOrder;
+import com.sergio.model.WithdrawalRequest;
 import com.sergio.model.OrderInfo;
 import com.sergio.services.OperationService;
 
@@ -26,7 +26,7 @@ public class OperationResource {
     @POST
     @Path("/withdraw")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response withdraw(AccountOrder order, @Context UriInfo uriInfo) {
+    public Response withdraw(WithdrawalRequest order, @Context UriInfo uriInfo) {
         String orderId = operationService.withdraw(order.getAccount(), order.getQuantity());
         UriBuilder uriBuilder = uriInfo.getBaseUriBuilder().path(OperationResource.class);
         uriBuilder.path(orderId.toString());
