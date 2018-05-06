@@ -2,6 +2,7 @@ package com.sergio.services;
 
 import com.sergio.model.OrderInfo;
 import com.sergio.model.orders.Order;
+import com.sergio.model.orders.WithdrawOrderAccepted;
 import com.sergio.model.orders.WithdrawOrderPlaced;
 import com.sergio.model.orders.WithdrawOrderRejected;
 import com.sergio.repositories.EventStorage;
@@ -34,6 +35,10 @@ public class OperationService {
     }
 
     private void whenWithdrawalRejected(@Observes WithdrawOrderRejected rejected) {
+        eventStorage.add(rejected);
+    }
+
+    private void whenWithdrawalAccepted(@Observes WithdrawOrderAccepted rejected) {
         eventStorage.add(rejected);
     }
 }
