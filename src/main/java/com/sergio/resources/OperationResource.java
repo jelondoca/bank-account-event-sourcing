@@ -60,7 +60,7 @@ public class OperationResource {
     @Path("/deposit")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response deposit(DepositRequest request, @Context UriInfo uriInfo) {
-        String orderId = operationService.deposit(request.getAccountId(), request.getQuantity());
+        String orderId = operationService.deposit(request.getAccount(), request.getQuantity());
         UriBuilder uriBuilder = uriInfo.getBaseUriBuilder().path(OperationResource.class);
         uriBuilder.path(orderId);
         return Response.created(uriBuilder.build()).build();

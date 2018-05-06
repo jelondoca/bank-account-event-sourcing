@@ -2,15 +2,15 @@ package com.sergio.model;
 
 public class DepositRequest {
 
-    private String accountId;
+    private String account;
     private Float quantity;
 
-    public String getAccountId() {
-        return accountId;
+    public String getAccount() {
+        return account;
     }
 
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public Float getQuantity() {
