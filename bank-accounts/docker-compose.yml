@@ -1,0 +1,11 @@
+version: '3'
+services:
+ event:
+  build: .
+  ports:
+   - '8080:8080'
+  networks:
+   - bank
+networks:
+  bank:
+    driver: bridge

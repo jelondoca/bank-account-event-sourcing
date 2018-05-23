@@ -1,0 +1,26 @@
+version: '3'
+services:
+ event:
+  build: .
+  ports:
+   - '8080:8080'
+ account:
+  image: bank-accounts_event:latest
+  ports:
+   - '9090:8080'
+ kafka:
+  image: wurstmeister/kafka
+  hostname: kafka
+  environment:
+   - 'KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181'
+   - 'KAFKA_CREATE_TOPICS=test:1:1'
+   - 'KAFKA_ADVERTISED_HOST_NAME=kafka'
+  ports:
+   - '9092:9092'
+  depends_on:
+   - zookeeper
+ zookeeper:
+  build: ./zookeeper
+  hostname: zookeeper
+  ports:
+   - '2181:2181'
