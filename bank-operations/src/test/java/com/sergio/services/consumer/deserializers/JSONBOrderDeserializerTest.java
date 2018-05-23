@@ -19,7 +19,7 @@ public class JSONBOrderDeserializerTest {
         JsonbBuilder builder = JsonbBuilder.newBuilder();
         builder.withConfig(JsonConfigFactory.config());
         Jsonb jsonb = builder.build();
-        String payload = "{\"com.sergio.model.events.WithdrawOrderPlaced\":{\"id\":\"64c0fb74-8c37-4d7a-b174-ee6941c6c53b\",\"instant\":\"2018-05-06T12:23:50.477Z\",\"account\":\"1\",\"quantity\":2000.0}}";
+        String payload = "{\"WithdrawOrderPlaced\":{\"id\":\"64c0fb74-8c37-4d7a-b174-ee6941c6c53b\",\"instant\":\"2018-05-06T12:23:50.477Z\",\"account\":\"1\",\"quantity\":2000.0}}";
         WithdrawOrderPlaced as = jsonb.fromJson(payload, WithdrawOrderPlaced.class.getGenericSuperclass());
         assertNotNull(as);
         assertEquals("1", as.getAccount());
@@ -32,7 +32,7 @@ public class JSONBOrderDeserializerTest {
         JsonbBuilder builder = JsonbBuilder.newBuilder();
         builder.withConfig(JsonConfigFactory.config());
         Jsonb jsonb = builder.build();
-        String payload = "{\"com.sergio.model.events.WithdrawOrderRejected\":{\"id\":\"f6bdcfc4-a8dc-4d1f-9b70-9560633c3b3d\",\"instant\":\"2018-05-06T13:17:03.668Z\",\"reason\":\"account not found\"}}";
+        String payload = "{\"WithdrawOrderRejected\":{\"id\":\"f6bdcfc4-a8dc-4d1f-9b70-9560633c3b3d\",\"instant\":\"2018-05-06T13:17:03.668Z\",\"reason\":\"account not found\"}}";
         WithdrawOrderRejected as = jsonb.fromJson(payload, WithdrawOrderRejected.class.getGenericSuperclass());
         assertNotNull(as);
     }
@@ -42,7 +42,7 @@ public class JSONBOrderDeserializerTest {
         JsonbBuilder builder = JsonbBuilder.newBuilder();
         builder.withConfig(JsonConfigFactory.config());
         Jsonb jsonb = builder.build();
-        String payload = "{\"com.sergio.model.events.DepositOrderAccepted\":{\"id\":\"5e9d4ec5-bca8-47bd-9427-066d288c19ba\",\"instant\":\"2018-05-06T17:59:22.961Z\"}}";
+        String payload = "{\"DepositOrderAccepted\":{\"id\":\"5e9d4ec5-bca8-47bd-9427-066d288c19ba\",\"instant\":\"2018-05-06T17:59:22.961Z\"}}";
         DepositOrderAccepted as = jsonb.fromJson(payload, DepositOrderAccepted.class.getGenericSuperclass());
         assertNotNull(as);
     }

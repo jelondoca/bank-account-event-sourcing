@@ -19,7 +19,8 @@ public class JSONBOrderDeserializer implements JsonbDeserializer<Order> {
                 String key = parser.getString();
                 parser.next(); // move to value for 'key'
                 try {
-                    event = ctx.deserialize(Class.forName(key).asSubclass(Order.class), parser);
+                    event = ctx.deserialize(Class.forName(Order.class.getPackage().getName() + "." + key)
+                            .asSubclass(Order.class), parser);
                 } catch (ClassNotFoundException e) {
                     throw new IllegalArgumentException(e);
                 }

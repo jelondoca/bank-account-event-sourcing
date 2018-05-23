@@ -10,7 +10,7 @@ public class JSONBOrderSerializer implements JsonbSerializer<Order> {
     @Override
     public void serialize(Order event, JsonGenerator generator, SerializationContext ctx) {
         generator.writeStartObject();
-        ctx.serialize(event.getClass().getName(), event, generator);
+        ctx.serialize(event.getClass().getSimpleName(), event, generator);
         generator.writeEnd();
     }
 }
