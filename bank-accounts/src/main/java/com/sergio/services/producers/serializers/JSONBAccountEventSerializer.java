@@ -10,7 +10,7 @@ public class JSONBAccountEventSerializer implements JsonbSerializer<AccountKafka
     @Override
     public void serialize(AccountKafkaEvent event, JsonGenerator generator, SerializationContext ctx) {
         generator.writeStartObject();
-        ctx.serialize(event.getClass().getName(), event, generator);
+        ctx.serialize(event.getClass().getSimpleName(), event, generator);
         generator.writeEnd();
     }
 }

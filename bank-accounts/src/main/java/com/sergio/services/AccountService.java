@@ -3,11 +3,9 @@ package com.sergio.services;
 import com.sergio.model.AccountInfo;
 import com.sergio.model.events.external.DepositOrderPlaced;
 import com.sergio.model.events.external.WithdrawOrderPlaced;
-import com.sergio.model.events.external.DepositOrderAcceptedEvent;
-import com.sergio.model.events.external.WithdrawOrderAcceptedEvent;
-import com.sergio.model.events.external.WithdrawOrderRejectedEvent;
-import com.sergio.model.events.internal.DepositOrderAccepted;
-import com.sergio.model.events.internal.WithdrawOrderAccepted;
+import com.sergio.model.events.external.DepositOrderAccepted;
+import com.sergio.model.events.external.WithdrawOrderAccepted;
+import com.sergio.model.events.external.WithdrawOrderRejected;
 import com.sergio.repositories.AccountRepository;
 
 import javax.enterprise.event.Observes;
@@ -51,8 +49,8 @@ public class AccountService {
                 return;
             }
             account.setQuantity(updatedQuantity);
-            WithdrawOrderAccepted internalWithdrawAccepted = new WithdrawOrderAccepted(order.getId(), order.getQuantity());
-            WithdrawOrderAcceptedEvent externalOrderAccepted = new WithdrawOrderAcceptedEvent(order.getId());
+            com.sergio.model.events.internal.WithdrawOrderAccepted internalWithdrawAccepted = new com.sergio.model.events.internal.WithdrawOrderAccepted(order.getId(), order.getQuantity());
+            WithdrawOrderAccepted externalOrderAccepted = new WithdrawOrderAccepted(order.getId());
             accountRepository.save(accountId, internalWithdrawAccepted);
             eventBus.produce(externalOrderAccepted);
         } else{
@@ -70,8 +68,8 @@ public class AccountService {
             Float quantity = depositOrder.getQuantity();
             float updatedQuantity = currentQuantity + quantity;
             account.setQuantity(updatedQuantity);
-            DepositOrderAcceptedEvent externalDepositOrderAccepted = new DepositOrderAcceptedEvent(depositOrder.getId());
-            DepositOrderAccepted orderAccepted = new DepositOrderAccepted(depositOrder.getId(), depositOrder.getQuantity());
+            DepositOrderAccepted externalDepositOrderAccepted = new DepositOrderAccepted(depositOrder.getId());
+            com.sergio.model.events.internal.DepositOrderAccepted orderAccepted = new com.sergio.model.events.internal.DepositOrderAccepted(depositOrder.getId(), depositOrder.getQuantity());
             accountRepository.save(accountId, orderAccepted);
             eventBus.produce(externalDepositOrderAccepted);
         } else{
@@ -81,7 +79,7 @@ public class AccountService {
 
     private void reject(String id, String reason) {
         System.err.println(reason);
-        WithdrawOrderRejectedEvent rejected = new WithdrawOrderRejectedEvent(id, reason);
+        WithdrawOrderRejected rejected = new WithdrawOrderRejected(id, reason);
         eventBus.produce(rejected);
     }
 

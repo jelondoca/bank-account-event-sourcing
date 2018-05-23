@@ -19,7 +19,7 @@ public class JSONBAccountEventDeserializer implements JsonbDeserializer<AccountK
                 String key = parser.getString();
                 parser.next(); // move to value for 'key'
                 try {
-                    event = ctx.deserialize(Class.forName(key).asSubclass(AccountKafkaEvent.class), parser);
+                    event = ctx.deserialize(Class.forName(AccountKafkaEvent.class.getPackage().getName() + "." + key).asSubclass(AccountKafkaEvent.class), parser);
                 } catch (ClassNotFoundException e) {
                     throw new IllegalArgumentException(e);
                 }
