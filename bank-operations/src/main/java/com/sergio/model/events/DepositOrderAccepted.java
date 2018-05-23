@@ -17,5 +17,4 @@ public class DepositOrderAccepted extends Order {
         order.setStatus(OrderInfo.OrderStatusType.ACCEPTED);
     }
 
-
 }

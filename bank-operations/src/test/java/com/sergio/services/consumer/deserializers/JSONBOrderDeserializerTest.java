@@ -42,8 +42,9 @@ public class JSONBOrderDeserializerTest {
         JsonbBuilder builder = JsonbBuilder.newBuilder();
         builder.withConfig(JsonConfigFactory.config());
         Jsonb jsonb = builder.build();
-        String payload = "{\"DepositOrderAccepted\":{\"id\":\"5e9d4ec5-bca8-47bd-9427-066d288c19ba\",\"instant\":\"2018-05-06T17:59:22.961Z\"}}";
+        String payload = "{\"DepositOrderAccepted\":{\"id\":\"806475ed-20f5-4a0c-a424-9ed95761144f\",\"instant\":\"2018-05-23T21:27:12.698Z\"}}";
         DepositOrderAccepted as = jsonb.fromJson(payload, DepositOrderAccepted.class.getGenericSuperclass());
+        System.out.println(as);
         assertNotNull(as);
     }
 

@@ -37,7 +37,6 @@ public class OperationService {
 
     public OrderInfo check(String orderId) {
         List<Order> orders = eventStorage.get(orderId);
-        System.out.println(orders);
         OrderInfo info = new OrderInfo();
         orders.forEach(o -> o.apply(info));
         return info;
@@ -56,7 +55,6 @@ public class OperationService {
     }
 
     private void whenDepositAccepted(@Observes DepositOrderAccepted accepted) {
-        System.out.println("DEPOSIT ACCEPTEDDDD!!!!!");
         eventStorage.add(accepted);
     }
 }
