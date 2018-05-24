@@ -49,7 +49,7 @@ public class AccountService {
                 return;
             }
             account.setQuantity(updatedQuantity);
-            com.sergio.model.events.internal.WithdrawOrderAccepted internalWithdrawAccepted = new com.sergio.model.events.internal.WithdrawOrderAccepted(order.getId(), order.getQuantity());
+            com.sergio.model.events.internal.WithdrawOrderAccepted internalWithdrawAccepted = new com.sergio.model.events.internal.WithdrawOrderAccepted(accountId, order.getQuantity());
             WithdrawOrderAccepted externalOrderAccepted = new WithdrawOrderAccepted(order.getId());
             accountRepository.save(accountId, internalWithdrawAccepted);
             eventBus.produce(externalOrderAccepted);
