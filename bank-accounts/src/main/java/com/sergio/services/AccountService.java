@@ -63,11 +63,6 @@ public class AccountService {
         String accountId = depositOrder.getAccountId();
         Optional<AccountInfo> info = accountRepository.get(accountId);
         if(info.isPresent()) {
-            AccountInfo account = info.get();
-            Float currentQuantity = account.getQuantity();
-            Float quantity = depositOrder.getQuantity();
-            float updatedQuantity = currentQuantity + quantity;
-            account.setQuantity(updatedQuantity);
             DepositOrderAccepted externalDepositOrderAccepted = new DepositOrderAccepted(depositOrder.getId());
             com.sergio.model.events.internal.DepositOrderAccepted orderAccepted = new com.sergio.model.events.internal.DepositOrderAccepted(depositOrder.getId(), depositOrder.getQuantity());
             accountRepository.save(accountId, orderAccepted);
