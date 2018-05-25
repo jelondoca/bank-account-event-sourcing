@@ -23,9 +23,6 @@ import java.util.Properties;
 public class KafkaConsumer {
 
     @Inject
-    AccountService accountService;
-
-    @Inject
     Event<AccountKafkaEvent> orderEvent;
 
     @Resource
